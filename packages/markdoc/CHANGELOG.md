@@ -1,5 +1,12 @@
 # @markdoc/markdoc
 
+## 0.5.15
+
+### Patch Changes
+
+- 89aa830: Reduce overhead when resolving and transforming documents by copying attribute values more efficiently and skipping unnecessary work for empty slots. Preserve independent node copies, constructor defaults, and protection against inherited property setters.
+- 8a27c52: Upgrade the bundled markdown-it parser to 15.0.3.
+
 ## 0.5.14
 
 ### Patch Changes
