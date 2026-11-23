@@ -324,6 +324,23 @@ Yes!
     check(inlineParent, inlineParent);
   });
 
+  it('images with a plain text alt', () => {
+    stable(`![Alt](/image "title")
+`);
+
+    // Emphasis in the description is not part of the alt text
+    check(
+      `![foo *bar*](/image)
+`,
+      `![foo bar](/image)
+`,
+    );
+
+    // Characters that would change the alt text on re-parse are escaped
+    stable(String.raw`![a \[b\] \*c\* \_d\_ \\ e](/image)
+`);
+  });
+
   it('long tags with maxTagOpeningWidth=Infinity', () => {
     const source = `
 {% tag a=true b="My very long text well over 80 characters in total" c=123456789 d=false /%}

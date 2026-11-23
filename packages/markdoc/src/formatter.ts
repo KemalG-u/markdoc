@@ -177,7 +177,11 @@ function* formatNode(n: Node, o: Options = {}) {
     case 'image': {
       yield '!';
       yield '[';
-      yield* formatValue(n.attributes.alt, no);
+      // The alt is plain text, so escape what would otherwise be re-parsed
+      // as brackets or inline formatting
+      yield* typeof n.attributes.alt === 'string'
+        ? escapeMarkdownCharacters(n.attributes.alt, /[\\[\]*_`]/g)
+        : formatValue(n.attributes.alt, no);
       yield ']';
       yield '(';
       yield* typeof n.attributes.src === 'string'
